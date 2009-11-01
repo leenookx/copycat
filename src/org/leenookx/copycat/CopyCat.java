@@ -3,6 +3,7 @@ package org.leenookx.copycat;
 import android.app.TabActivity;
 import android.os.Bundle;
 import android.widget.TabHost;
+import android.widget.TabHost.TabSpec;
 
 public class CopyCat extends TabActivity {
     private TabHost mTabHost;
@@ -13,11 +14,15 @@ public class CopyCat extends TabActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        mTabHost = getTabHost();
-        
-        mTabHost.addTab(mTabHost.newTabSpec("map").setIndicator("map").setContent(R.id.tab1));
-        mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("other").setContent(R.id.tab2));
-        
-        mTabHost.setCurrentTab(0);
+        mTabHost = (TabHost) findViewById(R.id.main_tabhost);
+		mTabHost.setup();
+		
+		// Get all of the tabs...
+		TabSpec mapTabSpecs = mTabHost.newTabSpec("MapViewTab");
+
+		mapTabSpecs.setIndicator(getText(R.string.mapview_tab_name), getResources().getDrawable(R.drawable.globemap));
+		mapTabSpecs.setContent(R.id.maptabview);		
+		
+		mTabHost.addTab(mapTabSpecs);
     }
 }

@@ -2,4 +2,6 @@
 <resources>
     <string name="hello">Hello World, LocationUpdate!</string>
     <string name="app_name">CopyCat</string>
+    <string name="mapview_tab_name">Map</string>
+    <string name="label_toggle_satellite">Toggle satellite mode</string>
 </resources>
