@@ -1,6 +1,5 @@
 package org.leenookx.copycat;
 
-import android.R;
 import android.app.TabActivity;
 import android.os.Bundle;
 import android.widget.TabHost;
