@@ -1,5 +1,6 @@
 package org.leenookx.copycat;
 
+import android.R;
 import android.app.TabActivity;
 import android.os.Bundle;
 import android.widget.TabHost;
@@ -15,8 +16,8 @@ public class CopyCat extends TabActivity {
         
         mTabHost = getTabHost();
         
-        mTabHost.addTab(mTabHost.newTabSpec("map").setIndicator("TAB 1").setContent(R.id.tab1));
-        mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("TAB 2").setContent(R.id.tab2));
+        mTabHost.addTab(mTabHost.newTabSpec("map").setIndicator("map").setContent(R.id.tab1));
+        mTabHost.addTab(mTabHost.newTabSpec("other").setIndicator("other").setContent(R.id.tab2));
         
         mTabHost.setCurrentTab(0);
     }
