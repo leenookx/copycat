@@ -7,7 +7,6 @@ import android.widget.TabHost.TabSpec;
 import com.google.android.maps.MapActivity;
 
 public class CopyCat extends MapActivity {
-    private TabHost mTabHost;
 
 	/** Called when the activity is first created. */
     @Override
@@ -15,7 +14,7 @@ public class CopyCat extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        mTabHost = (TabHost) findViewById(R.id.main_tabhost);
+        TabHost mTabHost = (TabHost) findViewById(R.id.main_tabhost);
 		mTabHost.setup();
 		
 		// Get all of the tabs...
