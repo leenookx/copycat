@@ -1,11 +1,12 @@
 package org.leenookx.copycat;
 
-import android.app.TabActivity;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-public class CopyCat extends TabActivity {
+import com.google.android.maps.MapActivity;
+
+public class CopyCat extends MapActivity {
     private TabHost mTabHost;
 
 	/** Called when the activity is first created. */
@@ -25,4 +26,10 @@ public class CopyCat extends TabActivity {
 		
 		mTabHost.addTab(mapTabSpecs);
     }
+
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

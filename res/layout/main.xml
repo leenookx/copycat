@@ -4,23 +4,23 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
      
-<LinearLayout android:id="@+id/maptabview"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <Button
-	    android:id="@+id/switchMapBtn"
-	    android:focusable="false"
+	<LinearLayout android:id="@+id/maptabview"
+	    android:orientation="vertical"
 	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:text="@string/label_toggle_satellite"/>
-
-    <view class="com.google.android.maps.MapView" 
-        android:id="@+id/myMapView"
-        android:apiKey="0Vk0txRWWbCHBS1WSX9jR2n3pk6SF1G-nhDN3eA"
-        android:longClickable="true"
-        android:focusableInTouchMode="true"
-        android:layout_width="fill_parent" 
-        android:layout_height="fill_parent"/>
-</LinearLayout>
+	    android:layout_height="fill_parent">
+	    <Button
+		    android:id="@+id/switchMapBtn"
+		    android:focusable="false"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:text="@string/label_toggle_satellite"/>
+	
+	    <com.google.android.maps.MapView 
+	        android:id="@+id/myMapView"
+	        android:apiKey="0ZCvH_jLGvSk-bq_jxCwtsuJy3mQOlrreMplV2Q"
+	        android:longClickable="true"
+	        android:focusableInTouchMode="true"
+	        android:layout_width="fill_parent" 
+	        android:layout_height="fill_parent"/>
+	</LinearLayout>
 </TabHost>

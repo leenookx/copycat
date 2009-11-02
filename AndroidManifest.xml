@@ -3,6 +3,7 @@
       android:versionCode="1"
       android:versionName="1.0" package="org.leenookx.copycat">
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.NoTitleBar">
+        <uses-library android:name="com.google.android.maps" />
         <activity android:name=".CopyCat"
                   android:label="@string/app_name">
             <intent-filter>
@@ -14,4 +15,7 @@
     </application>
     <uses-sdk android:minSdkVersion="3" />
 
+
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 </manifest> 
