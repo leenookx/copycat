@@ -27,5 +27,18 @@
 			    android:clickable="true" 
 			    android:apiKey="0ZCvH_jLGvSk-bq_jxCwtsuJy3mQOlrreMplV2Q" /> 
 		</LinearLayout>
+		
+		<LinearLayout android:id="@+id/statustabview"
+			android:orientation="vertical"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:padding="10px">
+
+			<TextView
+				android:id="@+id/senderTxtView"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:text="Status"/>	
+		</LinearLayout>
 	</FrameLayout>
 </TabHost>
