@@ -1,6 +1,8 @@
 package org.leenookx.copycat;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
@@ -36,4 +38,24 @@ public class CopyCat extends MapActivity {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	 @Override
+	 public boolean onCreateOptionsMenu(Menu menu) {
+		 super.onCreateOptionsMenu(menu);
+	
+		 menu.add(0, 0, 0, R.string.menu_settings).setIcon(android.R.drawable.ic_menu_preferences);
+		 menu.add(0, 1, 0, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
+	
+		 return true;
+	 }
+	 
+	 @Override
+	 public boolean onOptionsItemSelected(MenuItem item) {
+		 switch (item.getItemId()) {
+		    case 0: /* .. start settings activity .. */ break;
+		    case 1: /* .. start about activity .. */ break;
+		 }
+		 
+		 return true;
+	 }
 }
