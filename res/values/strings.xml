@@ -5,4 +5,12 @@
     <string name="menu_help">Help</string>
     <string name="menu_feedback">Feedback</string>
     <string name="menu_about">About</string>
+    <string name="about">CopyCat is an open-source intelligence system for the Android platform.
+\n
+\nSee http://github.com/leenookx/copycat for more info
+\n
+\nVersion ${VERSION}
+\n
+\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</string>
+    <string name="settings_username">User</string>
 </resources>

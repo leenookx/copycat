@@ -1,6 +1,10 @@
 package org.leenookx.copycat;
 
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
@@ -9,6 +13,8 @@ import android.widget.TabHost.TabSpec;
 import com.google.android.maps.MapActivity;
 
 public class CopyCat extends MapActivity {
+	
+	private static AlertDialog m_AlertDlg;
 
 	/** Called when the activity is first created. */
     @Override
@@ -51,11 +57,33 @@ public class CopyCat extends MapActivity {
 	 
 	 @Override
 	 public boolean onOptionsItemSelected(MenuItem item) {
+		boolean result = super.onOptionsItemSelected(item);
+		Intent intent = null;
+			
 		 switch (item.getItemId()) {
-		    case 0: /* .. start settings activity .. */ break;
-		    case 1: /* .. start about activity .. */ break;
+		    case 0: { /* .. start settings activity .. */
+				try {
+					intent = new Intent(this, org.leenookx.copycat.Settings.class);
+					startActivity(intent);
+				} 
+				catch (ActivityNotFoundException e) {
+					Log.e("copycat", e.getMessage());
+				}
+				}
+		    	break;
+		    case 1: /* .. start about activity .. */ 
+				if (m_AlertDlg != null) {
+					m_AlertDlg.cancel();
+				}
+				m_AlertDlg = new AlertDialog.Builder(this)
+				.setMessage(getString(R.string.about).replace("\\n","\n").replace("${VERSION}", Utils.getVersion(this)))
+				.setTitle(getString(R.string.menu_about))
+				.setIcon(R.drawable.icon)
+				.setCancelable(true)
+				.show();
+				break;
 		 }
 		 
-		 return true;
+		 return result;
 	 }
 }
