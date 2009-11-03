@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CopyCat</string>
-    <string name="mapview_tab_name">Map</string>
-    <string name="label_toggle_satellite">Toggle satellite mode</string>
 </resources>
