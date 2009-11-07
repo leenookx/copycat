@@ -8,6 +8,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
@@ -18,21 +19,23 @@ public class MapViewActivity extends MapActivity {
 	
 	private MapView mapView = null;
 	private MapController mapController = null;
-//	private LocationManager locMan = null;
-//	private Criteria criteria = null;
-//	private String provider = "";
-//	private final LocationListener locationUpdateListener = new LocationListener() {
-//
-//		public void onLocationChanged(Location location) {
-//			updateWithLocation( location );
-//		}
-//
-//		public void onProviderDisabled(String provider) {}
-//		public void onProviderEnabled(String provider) {}
-//		public void onStatusChanged(String provider, int status, Bundle extras) {}		
-//	};
+	private LocationManager locMan = null;
+	private Criteria criteria = null;
+	private String provider = "";
+	private final LocationListener locationUpdateListener = new LocationListener() {
+
+		public void onLocationChanged(Location location) {
+			updateWithLocation( location );
+		}
+
+		public void onProviderDisabled(String provider) {}
+		public void onProviderEnabled(String provider) {}
+		public void onStatusChanged(String provider, int status, Bundle extras) {}		
+	};
 	private List<Overlay> overlays = null;
 	private MyLocationOverlay myLocationOverlay = null;
+	private BuddyLocationOverlay buddyOverlay = null;
+	private OthersLocationOverlay othersOverlay = null;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,26 +58,32 @@ public class MapViewActivity extends MapActivity {
 		overlays.add( myLocationOverlay );
 		myLocationOverlay.enableMyLocation();
 		
-//		locMan = (LocationManager)getSystemService(LOCATION_SERVICE);
-//		 
-//		criteria = new Criteria();
-//		criteria.setAccuracy( Criteria.ACCURACY_FINE );
-//		criteria.setAltitudeRequired( false );
-//		criteria.setBearingRequired( false );
-//		criteria.setCostAllowed( true );
-//		criteria.setPowerRequirement( Criteria.POWER_LOW );
-//		criteria.setSpeedRequired( false );
-//		 
-//		provider = locMan.getBestProvider(criteria, true);
-//		 
-//		// Get the current location now...
-//		Location location = locMan.getLastKnownLocation( provider );
-//		updateWithLocation( location );
-//		
-//		locMan.requestLocationUpdates(provider,
-//				 						60000, // 1 minute 
-//				 						10,    // 100 metres
-//				 						locationUpdateListener);
+		locMan = (LocationManager)getSystemService(LOCATION_SERVICE);
+		 
+		criteria = new Criteria();
+		criteria.setAccuracy( Criteria.ACCURACY_FINE );
+		criteria.setAltitudeRequired( false );
+		criteria.setBearingRequired( false );
+		criteria.setCostAllowed( true );
+		criteria.setPowerRequirement( Criteria.POWER_LOW );
+		criteria.setSpeedRequired( false );
+		 
+		provider = locMan.getBestProvider(criteria, true);
+		
+		locMan.requestLocationUpdates(provider,
+				 						60000, // 1 minute 
+				 						10,    // 100 metres
+				 						locationUpdateListener);
+		
+		buddyOverlay = new BuddyLocationOverlay( getApplicationContext() );
+		overlays.add( buddyOverlay );
+		
+		othersOverlay = new OthersLocationOverlay( getApplicationContext() );
+		overlays.add( othersOverlay );
+		
+		// Get the current location now...
+		Location location = locMan.getLastKnownLocation( provider );
+		updateWithLocation( location );
 	}
 	
 	@Override
@@ -84,5 +93,18 @@ public class MapViewActivity extends MapActivity {
 	
 	private void updateWithLocation(Location location) {
 		 
+	}
+
+	private void updateWithNewLocation(Location location) {
+		buddyOverlay.setLocation(location);
+		othersOverlay.setLocation(location);
+		mapView.invalidate();
+
+		// Recenter the map.
+		Double geoLat = location.getLatitude()*1E6;
+		Double geoLng = location.getLongitude()*1E6;
+		GeoPoint point = new GeoPoint(geoLat.intValue(), geoLng.intValue());
+
+		mapController.animateTo(point);
 	}
 }
