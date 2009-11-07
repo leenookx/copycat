@@ -3,6 +3,10 @@ package org.leenookx.copycat;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -46,7 +50,6 @@ public class CopyCat extends MapActivity {
 
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -81,11 +84,11 @@ public class CopyCat extends MapActivity {
 					m_AlertDlg.cancel();
 				}
 				m_AlertDlg = new AlertDialog.Builder(this)
-				.setMessage(getString(R.string.about).replace("\\n","\n").replace("${VERSION}", Utils.getVersion(this)))
-				.setTitle(getString(R.string.menu_about))
-				.setIcon(R.drawable.icon)
-				.setCancelable(true)
-				.show();
+								.setMessage(getString(R.string.about).replace("\\n","\n").replace("${VERSION}", Utils.getVersion(this)))
+								.setTitle(getString(R.string.menu_about))
+								.setIcon(R.drawable.icon)
+								.setCancelable(true)
+								.show();
 				break;
 		 }
 		 
