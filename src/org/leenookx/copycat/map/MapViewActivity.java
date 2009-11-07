@@ -7,7 +7,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -51,6 +54,13 @@ public class MapViewActivity extends MapActivity {
 		
 		mapController = mapView.getController();
 		mapController.setZoom( 17 );
+		
+		mapView.setOnClickListener(new OnClickListener() {
+		
+			public void onClick(View v) {
+				Log.e("copycat", "You clicked the map");
+			}
+		});
 	}
 
 	@Override
