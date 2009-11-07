@@ -3,10 +3,6 @@ package org.leenookx.copycat;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -32,6 +28,7 @@ public class CopyCat extends MapActivity {
 		// Get all of the tabs...
 		TabSpec mapTabSpecs = mTabHost.newTabSpec("MapViewTab");
 		TabSpec buddyTabSpecs = mTabHost.newTabSpec("BuddyViewTab");
+		TabSpec othersTabSpecs = mTabHost.newTabSpec("OthersViewTab");
 		TabSpec statusTabSpecs = mTabHost.newTabSpec("StatusViewTab");
 
 		mapTabSpecs.setIndicator("", getResources().getDrawable(R.drawable.globemap));
@@ -40,11 +37,15 @@ public class CopyCat extends MapActivity {
 		buddyTabSpecs.setIndicator("Buddies");
 		buddyTabSpecs.setContent(R.id.buddytabview);
 		
+		othersTabSpecs.setIndicator("Others");
+		othersTabSpecs.setContent(R.id.otherstabview);
+		
 		statusTabSpecs.setIndicator("Status");
 		statusTabSpecs.setContent(R.id.statustabview);
 		
 		mTabHost.addTab(mapTabSpecs);
 		mTabHost.addTab(buddyTabSpecs);
+		mTabHost.addTab(othersTabSpecs);
 		mTabHost.addTab(statusTabSpecs);
     }
 
