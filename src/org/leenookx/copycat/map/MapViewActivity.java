@@ -46,6 +46,8 @@ public class MapViewActivity extends MapActivity {
 	private VideoLocationOverlay videosOverlay = null;
 	/** Whether or not the satellite view is switched on or not. */
 	private boolean satelliteState = false;
+	/** Whether or not the street view is switched on or not. */
+	private boolean streetState = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -139,22 +141,24 @@ public class MapViewActivity extends MapActivity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_I) {
-			// Zoom not closer than possible
-			mapController.setZoom(Math.min(Zoom.MAX_ZOOM, mapView.getZoomLevel() + 1));
-			return true;
-		} 
-		else if (keyCode == KeyEvent.KEYCODE_O) {
-			mapController.setZoom(Math.min(Zoom.MIN_ZOOM, mapView.getZoomLevel() - 1));
-			return true;
-		} 
-		else if (keyCode == KeyEvent.KEYCODE_T) {
-			// Switch to satellite view
-			satelliteState = !satelliteState;
-			mapView.setSatellite( satelliteState );
-			return true;
+		switch (keyCode) {
+			case KeyEvent.KEYCODE_I:
+				mapController.zoomIn();
+				break;
+			case KeyEvent.KEYCODE_O:
+				mapController.zoomOut();
+				break;
+			case KeyEvent.KEYCODE_S:
+				streetState = !streetState;
+				mapView.setStreetView( streetState );
+				break;
+			case KeyEvent.KEYCODE_T:
+				// Switch to satellite view
+				satelliteState = !satelliteState;
+				mapView.setSatellite( satelliteState );
+				break;
 		}
 		
-		return false;
+		return super.onKeyDown(keyCode, event);
 	} 
 }
