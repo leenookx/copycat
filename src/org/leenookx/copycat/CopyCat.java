@@ -27,15 +27,20 @@ public class CopyCat extends MapActivity {
 		
 		// Get all of the tabs...
 		TabSpec mapTabSpecs = mTabHost.newTabSpec("MapViewTab");
+		TabSpec buddyTabSpecs = mTabHost.newTabSpec("BuddyViewTab");
 		TabSpec statusTabSpecs = mTabHost.newTabSpec("StatusViewTab");
 
 		mapTabSpecs.setIndicator("", getResources().getDrawable(R.drawable.globemap));
 		mapTabSpecs.setContent(R.id.maptabview);		
 		
+		buddyTabSpecs.setIndicator("Buddies");
+		buddyTabSpecs.setContent(R.id.buddytabview);
+		
 		statusTabSpecs.setIndicator("Status");
 		statusTabSpecs.setContent(R.id.statustabview);
 		
 		mTabHost.addTab(mapTabSpecs);
+		mTabHost.addTab(buddyTabSpecs);
 		mTabHost.addTab(statusTabSpecs);
     }
 
