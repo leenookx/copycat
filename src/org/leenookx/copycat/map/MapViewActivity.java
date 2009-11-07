@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -14,6 +15,8 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
+import com.google.googlenav.map.Map;
+import com.google.map.Zoom;
 
 public class MapViewActivity extends MapActivity {
 	
@@ -36,6 +39,8 @@ public class MapViewActivity extends MapActivity {
 	private MyLocationOverlay myLocationOverlay = null;
 	private BuddyLocationOverlay buddyOverlay = null;
 	private OthersLocationOverlay othersOverlay = null;
+	/** Whether or not the satellite view is switched on or not. */
+	private boolean satelliteState = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -107,4 +112,25 @@ public class MapViewActivity extends MapActivity {
 
 		mapController.animateTo(point);
 	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_I) {
+			// Zoom not closer than possible
+			mapController.setZoom(Math.min(Zoom.MAX_ZOOM, mapView.getZoomLevel() + 1));
+			return true;
+		} 
+		else if (keyCode == KeyEvent.KEYCODE_O) {
+			mapController.setZoom(Math.min(Zoom.MIN_ZOOM, mapView.getZoomLevel() - 1));
+			return true;
+		} 
+		else if (keyCode == KeyEvent.KEYCODE_T) {
+			// Switch to satellite view
+			satelliteState = !satelliteState;
+			mapView.setSatellite( satelliteState );
+			return true;
+		}
+		
+		return false;
+	} 
 }
