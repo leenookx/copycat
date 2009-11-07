@@ -40,6 +40,7 @@ public class MapViewActivity extends MapActivity {
 	private OthersLocationOverlay othersOverlay = null;
 	private NoteLocationOverlay notesOverlay = null;
 	private ImageLocationOverlay imagesOverlay = null;
+	private VideoLocationOverlay videosOverlay = null;
 	/** Whether or not the satellite view is switched on or not. */
 	private boolean satelliteState = false;
 	
@@ -92,7 +93,10 @@ public class MapViewActivity extends MapActivity {
 		
 		imagesOverlay = new ImageLocationOverlay( getApplicationContext() );
 		overlays.add( imagesOverlay );
-		
+
+		videosOverlay = new VideoLocationOverlay( getApplicationContext() );
+		overlays.add( videosOverlay );
+
 		// Get the current location now...
 		Location location = locMan.getLastKnownLocation( provider );
 		updateWithLocation( location );
@@ -112,6 +116,7 @@ public class MapViewActivity extends MapActivity {
 		othersOverlay.setLocation( location );
 		notesOverlay.setLocation( location );
 		imagesOverlay.setLocation( location );
+		videosOverlay.setLocation( location );
 		mapView.invalidate();
 
 		// Recenter the map.
