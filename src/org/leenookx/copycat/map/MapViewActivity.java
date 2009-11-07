@@ -15,7 +15,6 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
-import com.google.googlenav.map.Map;
 import com.google.map.Zoom;
 
 public class MapViewActivity extends MapActivity {
@@ -39,6 +38,7 @@ public class MapViewActivity extends MapActivity {
 	private MyLocationOverlay myLocationOverlay = null;
 	private BuddyLocationOverlay buddyOverlay = null;
 	private OthersLocationOverlay othersOverlay = null;
+	private NoteLocationOverlay notesOverlay = null;
 	/** Whether or not the satellite view is switched on or not. */
 	private boolean satelliteState = false;
 	
@@ -85,7 +85,10 @@ public class MapViewActivity extends MapActivity {
 		
 		othersOverlay = new OthersLocationOverlay( getApplicationContext() );
 		overlays.add( othersOverlay );
-		
+
+		notesOverlay = new NoteLocationOverlay( getApplicationContext() );
+		overlays.add( notesOverlay );
+
 		// Get the current location now...
 		Location location = locMan.getLastKnownLocation( provider );
 		updateWithLocation( location );
