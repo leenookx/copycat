@@ -2,6 +2,8 @@ package org.leenookx.copycat.map;
 
 import java.util.List;
 
+import org.leenookx.copycat.R;
+
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 
 import com.google.android.maps.GeoPoint;
@@ -18,7 +21,6 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.MyLocationOverlay;
 import com.google.android.maps.Overlay;
-import com.google.map.Zoom;
 
 public class MapViewActivity extends MapActivity {
 	
@@ -30,7 +32,7 @@ public class MapViewActivity extends MapActivity {
 	private final LocationListener locationUpdateListener = new LocationListener() {
 
 		public void onLocationChanged(Location location) {
-			updateWithLocation( location );
+			updateWithNewLocation( location );
 		}
 
 		public void onProviderDisabled(String provider) {}
@@ -51,31 +53,22 @@ public class MapViewActivity extends MapActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		mapView = new MapView(this, "");
-		setContentView(mapView);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.map_layout);
+		mapView = (MapView)findViewById(R.id.mapview);
 		
 		mapController = mapView.getController();
-		mapController.setZoom( 17 );
+		overlays = mapView.getOverlays();
 		
 		mapView.setOnClickListener(new OnClickListener() {
-		
 			public void onClick(View v) {
 				Log.e("copycat", "You clicked the map");
 			}
 		});
-	}
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		return false;
-	}
-
-	@Override
-	public void onStart() {
 		
-		myLocationOverlay = new MyLocationOverlay(this, mapView);
-		overlays.add( myLocationOverlay );
+		myLocationOverlay = new MyLocationOverlay(getApplicationContext(), mapView);
 		myLocationOverlay.enableMyLocation();
+		overlays.add( myLocationOverlay );
 		
 		locMan = (LocationManager)getSystemService(LOCATION_SERVICE);
 		 
@@ -89,38 +82,37 @@ public class MapViewActivity extends MapActivity {
 		 
 		provider = locMan.getBestProvider(criteria, true);
 		
-		locMan.requestLocationUpdates(provider,
-				 						60000, // 1 minute 
-				 						10,    // 100 metres
-				 						locationUpdateListener);
-		
-		buddyOverlay = new BuddyLocationOverlay( getApplicationContext() );
-		overlays.add( buddyOverlay );
-		
-		othersOverlay = new OthersLocationOverlay( getApplicationContext() );
-		overlays.add( othersOverlay );
+//		locMan.requestLocationUpdates(provider,
+//				 						60000, // 1 minute 
+//				 						10,    // 100 metres
+//				 						locationUpdateListener);
+//		
+//		buddyOverlay = new BuddyLocationOverlay( getApplicationContext() );
+//		overlays.add( buddyOverlay );
+//		
+//		othersOverlay = new OthersLocationOverlay( getApplicationContext() );
+//		overlays.add( othersOverlay );
+//
+//		notesOverlay = new NoteLocationOverlay( getApplicationContext() );
+//		overlays.add( notesOverlay );
+//		
+//		imagesOverlay = new ImageLocationOverlay( getApplicationContext() );
+//		overlays.add( imagesOverlay );
+//
+//		videosOverlay = new VideoLocationOverlay( getApplicationContext() );
+//		overlays.add( videosOverlay );
 
-		notesOverlay = new NoteLocationOverlay( getApplicationContext() );
-		overlays.add( notesOverlay );
-		
-		imagesOverlay = new ImageLocationOverlay( getApplicationContext() );
-		overlays.add( imagesOverlay );
-
-		videosOverlay = new VideoLocationOverlay( getApplicationContext() );
-		overlays.add( videosOverlay );
-
-		// Get the current location now...
+		// Get the current (or last known) location now...
 		Location location = locMan.getLastKnownLocation( provider );
-		updateWithLocation( location );
+		GeoPoint p = new GeoPoint((int)location.getLatitude() * 1000000, 
+									(int)location.getLongitude() * 1000000);
+		mapController.setZoom( 17 );
+		mapController.setCenter( p );
 	}
-	
+
 	@Override
-	public void onStop() {
-		
-	}
-	
-	private void updateWithLocation(Location location) {
-		 
+	protected boolean isRouteDisplayed() {
+		return false;
 	}
 
 	private void updateWithNewLocation(Location location) {

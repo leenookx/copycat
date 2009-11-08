@@ -1,7 +1,11 @@
 package org.leenookx.copycat;
 
+import org.leenookx.copycat.map.MapViewActivity;
+
 import android.app.AlertDialog;
+import android.app.TabActivity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +14,7 @@ import android.view.MenuItem;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 
-import com.google.android.maps.MapActivity;
-
-public class CopyCat extends MapActivity {
+public class CopyCat extends TabActivity {
 	
 	private static AlertDialog m_AlertDlg;
 
@@ -22,7 +24,7 @@ public class CopyCat extends MapActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        TabHost mTabHost = (TabHost) findViewById(R.id.main_tabhost);
+        TabHost mTabHost = getTabHost();
 		mTabHost.setup();
 		
 		// Get all of the tabs...
@@ -31,8 +33,12 @@ public class CopyCat extends MapActivity {
 		TabSpec othersTabSpecs = mTabHost.newTabSpec("OthersViewTab");
 		TabSpec statusTabSpecs = mTabHost.newTabSpec("StatusViewTab");
 
-		mapTabSpecs.setIndicator("", getResources().getDrawable(R.drawable.globemap));
-		mapTabSpecs.setContent(R.id.maptabview);		
+//		mapTabSpecs.setIndicator("", getResources().getDrawable(R.drawable.globemap));
+//		mapTabSpecs.setContent(R.id.maptabview);	
+		mapTabSpecs.setIndicator("Map", getResources().getDrawable(R.drawable.globemap));
+		Context ctx = getApplicationContext();
+	    Intent i = new Intent(ctx, MapViewActivity.class); 
+	    mapTabSpecs.setContent(i);
 		
 		buddyTabSpecs.setIndicator("Buddies");
 		buddyTabSpecs.setContent(R.id.buddytabview);
@@ -47,12 +53,9 @@ public class CopyCat extends MapActivity {
 		mTabHost.addTab(buddyTabSpecs);
 		mTabHost.addTab(othersTabSpecs);
 		mTabHost.addTab(statusTabSpecs);
+		
+		mTabHost.setCurrentTab(0);
     }
-
-	@Override
-	protected boolean isRouteDisplayed() {
-		return false;
-	}
 	
 	 @Override
 	 public boolean onCreateOptionsMenu(Menu menu) {
