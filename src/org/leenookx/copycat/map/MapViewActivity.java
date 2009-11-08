@@ -82,31 +82,31 @@ public class MapViewActivity extends MapActivity {
 		 
 		provider = locMan.getBestProvider(criteria, true);
 		
-//		locMan.requestLocationUpdates(provider,
-//				 						60000, // 1 minute 
-//				 						10,    // 100 metres
-//				 						locationUpdateListener);
-//		
-//		buddyOverlay = new BuddyLocationOverlay( getApplicationContext() );
-//		overlays.add( buddyOverlay );
-//		
-//		othersOverlay = new OthersLocationOverlay( getApplicationContext() );
-//		overlays.add( othersOverlay );
-//
-//		notesOverlay = new NoteLocationOverlay( getApplicationContext() );
-//		overlays.add( notesOverlay );
-//		
-//		imagesOverlay = new ImageLocationOverlay( getApplicationContext() );
-//		overlays.add( imagesOverlay );
-//
-//		videosOverlay = new VideoLocationOverlay( getApplicationContext() );
-//		overlays.add( videosOverlay );
+		locMan.requestLocationUpdates(provider,
+				 						60000, // 1 minute 
+				 						10,    // 100 metres
+				 						locationUpdateListener);
+		
+		buddyOverlay = new BuddyLocationOverlay( getApplicationContext() );
+		overlays.add( buddyOverlay );
+		
+		othersOverlay = new OthersLocationOverlay( getApplicationContext() );
+		overlays.add( othersOverlay );
+
+		notesOverlay = new NoteLocationOverlay( getApplicationContext() );
+		overlays.add( notesOverlay );
+		
+		imagesOverlay = new ImageLocationOverlay( getApplicationContext() );
+		overlays.add( imagesOverlay );
+
+		videosOverlay = new VideoLocationOverlay( getApplicationContext() );
+		overlays.add( videosOverlay );
 
 		// Get the current (or last known) location now...
 		Location location = locMan.getLastKnownLocation( provider );
 		GeoPoint p = new GeoPoint((int)location.getLatitude() * 1000000, 
 									(int)location.getLongitude() * 1000000);
-		mapController.setZoom( 17 );
+		mapController.setZoom( 9 );
 		mapController.setCenter( p );
 	}
 
